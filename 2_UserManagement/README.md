@@ -130,8 +130,6 @@ Para mas información respecto a este SDK, puedes visitar la página del [proyec
 
 1. Si eres redirigido a `/operations.html`. Deberías ver un mensaje que dice **API Gateway no se ha configurado aun**.
 
-    ![Successful login screenshot](../images/successful-login.png)
-
 ### :star: Recap
 
 :key: Amazon Cognito provee dos posibilidades de administrar usuarios, federadción de identidades, y user pools. [Amazon Cognito][cognito] user pools puede administrar casi cualquier aspecto relacionado a la administración de usuarios y sus credenciales, tales como reestablecimiento de contraseñas, MFA y mucho más!
