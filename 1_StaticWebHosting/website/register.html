@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+    </head>
+    <body>
+        <section class="form-wrap">
+            <h1>Register</h1>
+            <form id="registrationForm">
+              <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
+              <input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required>
+              <input type="password" id="password2InputRegister" placeholder="Confirm Password" pattern=".*" required>
+
+              <input type="submit" value="Registrar">
+            </form>
+        </section>
+
+        <script src="js/vendor/jquery-3.1.0.js"></script>
+        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/cognito-register.js"></script>
+        <script src="js/cognito-session-controller.js"></script>
+    </body>
+</html>
