@@ -88,47 +88,47 @@ Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
      * [new branch]      master -> master
     ```
 
-### Deploy the site with the AWS Amplify Console
-Next you'll use the [AWS Amplify Console][amplify-console] to deploy the website you've just commited to git. The Amplify Console takes care of the work of setting up a place to store your static web application code and provides a number of helpful capabilities to simplify both the lifecycle of that application as well as enable best practices.
+### Desplegar un sitio con la consola de AWS Amplify
+Lo siguiente que usarás sera la [Consola de AWS Amplify][amplify-console] para desplegar tu sitio que acabas de enviar a tu repositorio git. 
+La consola de **Amplify** se hará cargo del trabajo de configurar un lugar para almacenar tu aplicacion web estática y provee un sin número de herramientas para simplificar tanto el ciclo de vida de la aplicación como también habilitar mejores prácticas.
 
-**:white_check_mark: Step-by-step directions**
-1. Launch the [Amplify Console console page][amplify-console-console]
-1. Click **Connect App**
-1. Select the *Repository service provider* used today and select **Next**
-    1. If you used GitHub, you'll need to authorize AWS Amplify to your GitHub account
-1. From the dropdown select the *Repository* and *Branch* created today
+**:white_check_mark: Instrucciones paso a paso**
+1. Navega hasta la cosola de [AWS Amplify][amplify-console-console]
+1. Haz click en **Connect App**
+1. Selecciona el **Repository service provider** que usaremos hoy y luego haz click en **Next**
+1. Desde el menú desplegable selecciona el **Repositor** y **Branch** creados y presiona **Next** (*si todo esta por defecto, debería ser la rama `master`*)
     
     ![Amplify Repository configuration](../images/amplify-console-repository-setup.png)
-1. On the "Configure build settings" page leave all the defaults and select **Next**
-1. On the "Review" page select **Save and deploy**
+1. En la página "Configure build settings" deja todo por defecto y haz click en **Next**
+1. En la página de revisión, haz click en **Save and deploy**
     
-    The process takes a couple of minutes for Amplify Console to create the neccesary resources and to deploy your code.
+    El proceso puede tomar un par de minutos para que la consola de Amplify provisione los recursos necesarios con el fin de desplegar tu código.
     
     ![Amplify Deployment](../images/amplify-deploy-status.png)
 
-Once completed, click on the site image to launch your Wild Rydes site.
+Una vez completado, haz click en el la imagen del sitio para lanzar tu sitio.
 
-![Wild Rydes homepage screenshot](../images/wildrydes-homepage.png)
+![homepage screenshot](../images/homepage.png)
 
-If you click on the link for *Master* you'll see various pieces of information about your website deployment, including sample rendorings on various platforms:
+Si haces click en el link *Master* veras varias secciones de información respecto al despliegue de tu sitio, incluyendo algunas muestras de previsualización en varias plataformas:
 
 ![Amplify Client Renderings](../images/amplify-renderings.png)
 
-### Modify the website
-The AWS Amplify Console will rebuild and redeploy the app when it detects changes to the connected repository. Make a change to the main page to test out this process.
+### Ahora modifica el sitio web
+La consola de AWS Amplify reconstruirá y redesplegará la applicacion cuando detecte cambios en el repositorio conectado. haz algún cambio en la página principal para probar este proceso.
 
-**:white_check_mark: Step-by-step directions**
-1. From your Cloud9 environment open the ```index.html``` file in the root directory of the repository.
-1. Modify the title line:
+**:white_check_mark: Instruciones paso a paso**
+1. Desde un entorno de desarrollo Cloud9 abre el archivo ```index.html``` ubicado en el directorio raiz de tu repositorio.
+1. Modifica la linea del título:
     ```
-      <title>Wild Rydes</title>
+        <title>MyWebApp!</title>
     ```
-    So that it says:
+    Para que diga **(reemplazando {YOUR NAME} por tu nombre)**:
     ```
-      <title>Wild Rydes - Rydes of the Future!</title>
+        <title>MyWebApp! - {YOUR NAME}</title>
     ```
-    Save the file
-1. Commit again to your git repository the changes:
+    Guarda el archivo
+1. Haz el commit de los cambios a tu repositorio:
     ```
     $ git add index.html 
     $ git commit -m "updated title"
@@ -144,22 +144,20 @@ The AWS Amplify Console will rebuild and redeploy the app when it detects change
     To https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wildrydes-site
        2e9f540..dfec2e5  master -> master
    ```
-    Amplify Console will begin to build the site again soon after it notices the update to the repository. It will happen pretty quickly! Head back to the [Amplify Console console page][amplify-console-console] to watch the process. 
+    La consola de Amplify comenzara a construir el sitio nuevamente tan pronto como detecta los cambios en el repositorio. Lo hará bastante rápido. Muévete rapido a la [pagina de la consola de Amplify][amplify-console-console] para alcanzar a ver el proceso.
 
-1. Once completed, re-open the Wild Rydes site and notice the title change.
-    
-    ![title updated](../images/title-update.png)
+1. Una vex que este haya finalizado, vuelve a cargar tu sitio y comprueba el cambio del título en él.
 
 ### :star: Recap
 
-:key: AWS Amplify Console makes it really easy to deploy static websites following a continuous integration and delivery model. It has capabilities for "building" more complicated javascript framework based applications and can show you a preview of your application as it would rendor on popular mobile platforms.
+:key: La Consola de AWS Amplify nos hace realmente facil desplegar sitios web estaticos siguiendo los modelos de **Integracion y despliegue continuo**. Además tiene la capacidad para realizar procesos mas complicados usando la fase de **build** en el caso de usar frameworks que requieran procesos customizados, renderizando finalmente el resultado usando las plataformas más populares.
 
-:wrench: In this module, you've created static website which will be the base for our Wild Rydes business.
+:wrench: En este módulo haz creado el sitio web estático que será la base para los siguientes módulos.
 
-### Next
+### Siguiente
 
-:white_check_mark: Proceed to the next module, [User Management][user-management], 
-wherein you'll configure Amazon Cognito User Pools to manage the users for our application.
+:white_check_mark: Continua con el siguiente módulo, [User Management][user-management], 
+donde configurarás **Amazon Cognito User Pools** para administrar los usuarios de tu aplicación.
 
 [setup]: ../0_Setup/
 [commit]: https://aws.amazon.com/codecommit

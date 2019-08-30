@@ -27,7 +27,7 @@ la arquitectura y verificar el trabajo.
 | [Serverless Backend][serverless-backend] | Crear una funciona lambda que almacene los datos en una tabla Amazon DynamoDB. |
 | [RESTful APIs][restful-apis] | Exponer la función lambda via Amazon API Gateway como una API RESTful que pueda ser llamada por el sitio web usando Javascript. |
 
-:warning: Estos modulos deben ser executados de forma secuencial.
+:warning: Estos módulos deben ser executados de forma secuencial.
 
 
 [wildrydes]: http://wildrydes.com/
