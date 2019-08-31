@@ -10,33 +10,25 @@
         <meta name="description" content="Serverless web application example">
         <meta name="author" content="">
     
-        <link rel="stylesheet" href="/css/ride.css">
+        <link rel="stylesheet" href="/css/application.css">
     </head>
     
     <body>
     
         <div class="info panel panel-default">
-            <div class="panel-heading">
-                <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
-                <div class="dropdown pull-right">
-                    <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="accountLink">
-                        <li><a id="signOut" href="#">Sign out</a></li>
-                    </ul>
-                </div>
+            <div id="userInfo" class="userid-top" style="display: none;">
+                <span>Sesión iniciada como: <strong><span id="username"></span></strong></span>
+                <button id="closeSession">[X] Cerrar</button>
             </div>
             <div class="panel-body">
+                <h2>Mis notas</h2>
                 <ol id="updates">
-                    <li>Objeto agregado 1</li>
-                    <li>Objeto agregado 2</li>
                 </ol>
             </div>
         </div>
     
         <div id="main">
-            <textarea id="txtToSave"></textarea>
+            <textarea id="annotationTXT" style="width: 100%"></textarea>
             <input type="button" id="saveButton" value="Guardar">
         </div>
     

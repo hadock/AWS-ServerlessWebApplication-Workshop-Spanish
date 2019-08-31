@@ -82,4 +82,17 @@ var MiAplicacion = window.MiAplicacion || {};
         }
     });
     
+    /**
+     * Funcion que permite obtener informacion del usuario actual en sesión
+     * siempre y cuando haya una sesion activa
+     * */
+    MiAplicacion.getSession = new Promise((resolve, reject) => {
+        var cognitoUser = userPool.getCurrentUser();
+        if (cognitoUser) {
+            resolve(cognitoUser)
+        } else {
+            resolve(null);
+        }
+    });
+    
 }(jQuery));
