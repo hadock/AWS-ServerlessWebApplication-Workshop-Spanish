@@ -16,58 +16,62 @@ Cada una de las siguientes secciones entrega una descripción general de la impl
 
 ### 1. Crear una tabla Amazon DynamoDB
 
-Use the Amazon DynamoDB console to create a new DynamoDB table. Call your table `Rides` and give it a partition key called `RideId` with type String. The table name and partition key are case sensitive. Make sure you use the exact IDs provided. Use the defaults for all other settings.
+Use la consola de Amazon DynamoDB para crear una nueva tabla de DynamoDB, a tu tabla ponle el nombre `MyNotesWebApp`, en la llave de partición escribe `userid`, haz click en **Add sort key** y luego escribe `noteid` para el indice de ordenamiento. Toma en cuenta que el nombre de la tabla y los campos son **case sensitive**. Intenta usar exactamente los mismos valores entregados.
+Finalmente, desmarca la opcion **Use default settings**, y en las configuraciones que aparecen, haz click en **On-demand**, de esta forma no tendremos que provisionar operaciones de escritura/lectura para esta tabla.
 
+Luego que la tabla está creada, toma nota del ARN para usarlo en el siguiente paso.
 After you've created the table, note the ARN for use in the next step.
 
-**:white_check_mark: Step-by-step directions**
-1. Go to the [Amazon DynamoDB Console][dynamodb-console]
-1. Choose **Create table**.
-1. Enter `Rides` for the **Table name**. This field is case sensitive.
-1. Enter `RideId` for the **Partition key** and select **String** for the key type. This field is case sensitive.
-1. Check the **Use default settings** box and choose **Create**.
+**:white_check_mark: Instrucciones paso a paso**
+1. Navega hasta la [Consola de Amazon DynamoDB][dynamodb-console]
+1. Haz click en **Create table**.
+1. Escribe `MyNotesWebApp` para el campo **Table name**. Debes usar exactamente el mismo valor entregado debido a que este campo es **case sensitive**.
+1. Esribe `userid` en el campo **Partition key** y selecciona **String** para el **key type**. este campo es **case sensitive**.
+1. Haz click en **Add sort key** y en el campo que aparece escribe `noteid`. recuerda usar el mismo valor dado que también es **case sensitive**
+1. Desmarca la opcion **Use default settings**
+1. En la sección de opciones que aparecen, haz click en **On-demand** y luego presiona **Create**.
     ![Create table screenshot](../images/ddb-create-table.png)
-1. Scroll to the bottom of the Overview section of your new table and note the **ARN**. You will use this in the next section.
+1. En la página de detalles, ve al final y encuentra el **ARN** de tu tabla. Usarás este valor en el siguiente paso.
 
-### 2. Create an IAM Role for Your Lambda function
+### 2. Crear un IAM Role para tu función Lambda
 
 #### Background
 
-Every Lambda function has an IAM role associated with it. This role defines what other AWS services the function is allowed to interact with. For the purposes of this workshop, you'll need to create an IAM role that grants your Lambda function permission to write logs to Amazon CloudWatch Logs and access to write items to your DynamoDB table.
+Cada funcion Lambda tiene asociado consigo un IAM rol. Este rol define a que otros servicios de AWS esta función tendrá acceso. Para los propósitos de este workshop, necesitaras crear un IAM rol que autorice a la funcion Lambda para escribir en Amazon CloudWatch Logs y a escribir registros en la tabla de DynamoDB que acabamos de crear.
 
-#### High-Level Instructions
+#### Instrucciones para la implementación
 
-Use the IAM console to create a new role. Name it `WildRydesLambda` and select AWS Lambda for the role type. You'll need to attach policies that grant your function permissions to write to Amazon CloudWatch Logs and put items to your DynamoDB table.
+Use la consola web de IAM para crear un nuevo rol, como nombre escriba `MyNotesWebAppLambda` y luego selecciona **AWS Lambda** para el **role type**. necesitaras adjuntar políticas que entreguen a la función los permisos necesarios para escribir en Amazon CloudWatch Logs y para escribir registros en tu tabla de DynamoDB.
 
-Attach the managed policy called `AWSLambdaBasicExecutionRole` to this role to grant the necessary CloudWatch Logs permissions. Also, create a custom inline policy for your role that allows the `ddb:PutItem` action for the table you created in the previous section.
+Adjunta la **managed policy** de nombre `AWSLambdaBasicExecutionRole` a este rol para entregar los permisos necesarios para escribir en CloudWatch Logs, También, deberas crear una **custom inline policy** en tu rol, que permita la accion `ddb:PutItem` en la tabla que acabamos de crear en el paso anterior.
 
-**:white_check_mark: Step-by-step directions**
-1. Go to the [AWS IAM Console][iam-console]
-1. Select **Roles** in the left navigation bar and then choose **Create role**.
-1. Select **Lambda** for the role type from the **AWS service** group, then click **Next: Permissions**
-    **Note:** Selecting a role type automatically creates a trust policy for your role that allows AWS services to assume this role on your behalf. If you were creating this role using the CLI, AWS CloudFormation or another mechanism, you would specify a trust policy directly.
-1. Begin typing `AWSLambdaBasicExecutionRole` in the **Filter** text box and check the box next to that role.
-1. Click **Next: Tags**. Add any tags that you wish.
-1. Click **Next: Review**.
-1. Enter `WildRydesLambda` for the **Role name**.
-1. Choose **Create role**. 
+**:white_check_mark: Instrucciones paso a paso**
+1. Navega hasta la [Consola web de AWS IAM][iam-console]
+1. Selecciona **Roles** en la barra de navegación al costado izquiero y luego haz click en **Create role**.
+1. Selecciona **Lambda** para el **role type** desde el grupo **AWS service**, luego haz click en **Next: Permissions**
+    **Nota:** Seleccionando el **role type** automáticamente genera un **trust policy** que permite a los servicios de AWS asumir este rol por ti. Si crearas este rol usando el CLI, AWS CloudFormation u otro mecanismo, tendrás que especificar esta política diréctamente.
+1. Comienza escribiendo `AWSLambdaBasicExecutionRole` en el cuadro de texto **Filter** y selecciona el rol que aparece marcando el cuadro.
+1. Haz click en **Next: Tags**. Agrega todos los tags que quieras.
+1. Luego haz click en **Next: Review**.
+1. Escribe el nombre `MyNotesWebAppLambda` en el campo **Role name**.
+1. Finalmente haz click en **Create role**. 
 
-Next you need to add permissions to the role so that it can access your DynamoDB table.
+Lo siguiente que debes hacer, es agregar permisos para que el rol pueda acceder a la tabla de DynamoDB
 
-**:white_check_mark: Step-by-step directions*
-1. While in the IAM Console on the roles page type `WildRydesLambda` into the filter box on the Roles page and choose the role you just created.
-1. On the Permissions tab, choose the **Add inline policy** link in the lower right corner to create a new inline policy.
+**:white_check_mark: Instrucciones paso a paso*
+1. Mientras estás en la consola de IAM, escribe `MyNotesWebAppLambda` en el cuadro de texto para filtrar y selecciona el rol que acabas de crear.
+1. En la pestaña de **Permissions**, haz click en el link **Add inline policy** para crear un nuevo **inline policy**.
     ![Inline policies screenshot](../images/inline-policies.png)
-1. Select **Choose a service**.
-1. Begin typing `DynamoDB` into the search box labeled **Find a service** and select **DynamoDB** when it appears.
+1. Selecciona **Choose a service**.
+1. Comienza a escribir `DynamoDB` en el cuadro de busquedas llamado **Find a service** y selecciona **DynamoDB** cuando aparezca.
     ![Select policy service](../images/select-policy-service.png)
-1. Choose **Select actions**.
-1. Begin typing `PutItem` into the search box labeled **Filter actions** and check the box next to **PutItem** when it appears.
-1. Select the **Resources** section.
-1. With the **Specific** option selected, choose the Add ARN link in the **table** section.
-1. Paste the ARN of the table you created in the previous section in the **Specify ARN for table** field, and choose **Add**.
-1. Choose **Review Policy**.
-1. Enter `DynamoDBWriteAccess` for the policy name and choose **Create policy**.
+1. Haz click en **Select actions**.
+1. Comienza escribiendo `PutItem` en el cuadro de texto llamado **Filter actions** y selecciona el cuadro junto a **PutItem** cuando aparezca.
+1. Haz click en la sección **Resources**.
+1. Con la opción **Specific** seleccionada, haz click sobre el link, **Add ARN** en la sección **table**.
+1. Pega el ARN de la tabla que haz creado en el paso anterior en el campo **Specify ARN for table**, y luego haz click en **Add**.
+1. Haz click en **Review Policy**.
+1. Escribe `DynamoDBWriteAccess` para el nombre de esta política y luego haz click en **Create policy**.
     ![Review Policy](../images/review-policy.png)
 
 ### 3. Create a Lambda Function for Handling Requests
@@ -109,23 +113,23 @@ For this module you will test the function that you built using the AWS Lambda c
 1. Copy and paste the following test event into the editor:
     ```JSON
     {
-        "path": "/ride",
-        "httpMethod": "POST",
-        "headers": {
-            "Accept": "*/*",
-            "Authorization": "eyJraWQiOiJLTzRVMWZs",
-            "content-type": "application/json; charset=UTF-8"
-        },
-        "queryStringParameters": null,
-        "pathParameters": null,
-        "requestContext": {
-            "authorizer": {
-                "claims": {
-                    "cognito:username": "the_username"
-                }
-            }
-        },
-        "body": "{\"PickupLocation\":{\"Latitude\":47.6174755835663,\"Longitude\":-122.28837066650185}}"
+      "path": "/annotate",
+      "httpMethod": "POST",
+      "headers": {
+        "Accept": "*/*",
+        "Authorization": "eyJraWQiOiJLTzRVMWZs",
+        "content-type": "application/json; charset=UTF-8"
+      },
+      "queryStringParameters": null,
+      "pathParameters": null,
+      "requestContext": {
+        "authorizer": {
+          "claims": {
+            "cognito:username": "the_username"
+          }
+        }
+      },
+      "body": "{\"annotation\":\"Mi anotacion de prueba\"}"
     }
     ```
     ![Configure test event](../images/configure-test-event-2.png)
