@@ -74,43 +74,43 @@ Lo siguiente que debes hacer, es agregar permisos para que el rol pueda acceder 
 1. Escribe `DynamoDBWriteAccess` para el nombre de esta política y luego haz click en **Create policy**.
     ![Review Policy](../images/review-policy.png)
 
-### 3. Create a Lambda Function for Handling Requests
+### 3. Crea una función Lambda para procesar las peticiones
 
 #### Background
 
-AWS Lambda will run your code in response to events such as an HTTP request. In this step you'll build the core function that will process API requests from the web application to dispatch a unicorn. In the next module you'll use Amazon API Gateway to create a RESTful API that will expose an HTTP endpoint that can be invoked from your users' browsers. You'll then connect the Lambda function you create in this step to that API in order to create a fully functional backend for your web application.
+AWS Lambda ejecutará tu código fuente en respuesta a eventos tales como **peticiones HTTP**. En este paso, construirás la función principal que procesará las peticiones que llegan a nuestra API desde la aplicación web para guardar la nota de texto. En el siguiente módulo usarás API Gateway para crear una API RESTful que expondrá un endpoint HTTP que puede ser invocado por los usuarios desde el navegador. Finalmente conectarás con la función Lambda que crearás en este paso a esa API de manera de crear un backend totalmente funcional para tu aplicación.
 
-#### High-Level Instructions
+#### Instrucciones para la implementación
 
-Use the AWS Lambda console to create a new Lambda function called `RequestUnicorn` that will process the API requests. Use the provided [requestUnicorn.js](requestUnicorn.js) example implementation for your function code. Just copy and paste from that file into the AWS Lambda console's editor.
+Utiliza la consola de AWS Lambda para crear una nueva funcion llamada `SaveAnnotation` que procesará las peticiones que llegan a nuestr API. utiliza este script de ejemplo [saveAnnotation.js](saveAnnotation.js) como código fuente para tu función, Solo copia y pega el contenido del archivo en el editor de la consola web de AWS Lambda.
 
-Make sure to configure your function to use the `WildRydesLambda` IAM role you created in the previous section.
+Asegurate de configurar tu función para usar el IAM rol `MyNotesWebAppLambda` que haz creado en el paso anterior.
 
-**:white_check_mark: Step-by-step directions**
-1. Go to the [AWS Lambda][lambda-console]
-1. Click **Create function**.
-1. Keep the default **Author from scratch** card selected.
-1. Enter `RequestUnicorn` in the **Name** field.
-1. Select **Node.js 8.10** for the **Runtime**.
-2. Expand *Choose or create an execution role* under **Permissions**.
-1. Ensure `Choose an existing role` is selected from the **Role** dropdown.
-1. Select `WildRydesLambda` from the **Existing Role** dropdown.
+**:white_check_mark: Instrucciones paso a paso**
+1. Navega a la consola web de [AWS Lambda][lambda-console]
+1. Haz click en **Create function**.
+1. Mantén la opción por defecto **Author from scratch** que debería estar seleccionada.
+1. Escribe `SaveAnnotation` en el campo **Name**.
+1. Selecciona **Node.js 10.x** como **Runtime**.
+2. Haz click en *Choose or create an execution role* que se encuentra bajo **Permissions** para desplegar mas opciones.
+1. Asegurate de seleccionar `Choose an existing role` en el menu desplegable **Role**.
+1. Seleciona `MyNotesWebAppLambda` en el menú desplegable **Existing Role**.
     ![Create Lambda function screenshot](../images/create-lambda-function.png)
-1. Click on **Create function**.
-1. Scroll down to the **Function code** section and replace the existing code in the **index.js** code editor with the contents of [requestUnicorn.js](requestUnicorn.js).
+1. Haz click en **Create function**.
+1. Baja en la página hasta encontrar la sección **Function code** y reemplaza el código existente en **index.js** usando el editor de código con el contenido de [saveAnnotation.js](saveAnnotation.js).
     ![Create Lambda function screenshot](../images/create-lambda-function-code.png)
-1. Click **"Save"** in the upper right corner of the page.
+1. Haz click en **"Save"** en la esquina superior izquierda de la página.
 
-## Implementation Validation
+## Validación de la implementación.
 
-For this module you will test the function that you built using the AWS Lambda console. In the next module you will add a REST API with API Gateway so you can invoke your function from the browser-based application that you deployed in the first module.
+Para este módulo podrás probar la función que acabas de implementar usando la consola web de AWS Lambda. en el siguiente módulo agregarás una API REST para que puedas invocar tu función desde la aplicación que corre en el navegador y que desplegamos en el primer módulo.
 
-**:white_check_mark: Step-by-step directions**
-1. From the main edit screen for your function, select **Configure test events** from the the **Select a test event...** dropdown.
+**:white_check_mark: Instrucciones paso a paso**
+1. Desde la página principal de edición de tu función, selecciona la opcion **Configure test events** desde el menú desplegable **Select a test event...**.
     ![Configure test event](../images/configure-test-event.png)
-1. Keep **Create new test event** selected.
-1. Enter `TestRequestEvent` in the **Event name** field
-1. Copy and paste the following test event into the editor:
+1. Manten la opción **Create new test event** seleccionada.
+1. Escribe `TestRequestEvent` en el campo **Event name**
+1. Copia y pega el siguiente evento de prueba en el editor:
     ```JSON
     {
       "path": "/annotate",
@@ -133,23 +133,23 @@ For this module you will test the function that you built using the AWS Lambda c
     }
     ```
     ![Configure test event](../images/configure-test-event-2.png)
-1. Click **Create**.
-1. On the main function edit screen click **Test** with `TestRequestEvent` selected in the dropdown.   
-1. Scroll to the top of the page and expand the **Details** section of the **Execution result** section.
-1. Verify that the execution succeeded and that the function result looks like the following:
+1. Haz click en **Create**.
+1. Desde la página principal de edición de tu función, haz click en **Test** con `TestRequestEvent` seleccionado en el menú desplegable.  
+1. Ve hasta el comienzo de la pagina y despliega los detalles de la ejecución haciendo click en **Details** de la sección **Execution result**
+1. Verificar que la ejecución sea exitosa y que el resultado sea algo como esto:
     ```JSON
     {
-      "statusCode": 201,
-      "body": "{\"RideId\":\"1h0zDZ-6KLZaEQCPyqTxeQ\",\"Unicorn\":{\"Name\":\"Shadowfax\",\"Color\":\"White\",\"Gender\":\"Male\"},\"UnicornName\":\"Shadowfax\",\"Eta\":\"30 seconds\",\"Rider\":\"the_username\"}",
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+        "statusCode": 201,
+        "body": "{\"requestid\":\"719b1c33-6e79-4a95-9ce0-9bbdc206dd44\",\"noteid\":\"uNytg7LWlyAAJfgL5h8d3A\",\"save_at\":\"2019-09-03T18:44:10.341Z\"}",
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
     }
     ```
 
 ### :star: Recap
 
-:key: [AWS Lambda][lambda] is a serverless functions as a service product that removes the burden of managing servers to run your applications. You configure a trigger and set the role that the function can use and then can interface with almost anything you want from databases, to datastores, to other services eithe publicly on the internet or in your own Amazon Virtual Private Cloud (VPC). [Amazon DynamoDB][dynamodb] is a non-relational serverless database that can scale automatically to handle massive amounts of traffic and data without you need manage any servers.
+:key: [AWS Lambda][lambda] Es un servicio de ejecución de código serverless is a serverless functions as a service product that removes the burden of managing servers to run your applications. You configure a trigger and set the role that the function can use and then can interface with almost anything you want from databases, to datastores, to other services eithe publicly on the internet or in your own Amazon Virtual Private Cloud (VPC). [Amazon DynamoDB][dynamodb] is a non-relational serverless database that can scale automatically to handle massive amounts of traffic and data without you need manage any servers.
 
 :wrench: In this module you've created a DynamoDB table and then a Lambda function to write data into it. This function will be put behind an Amazon API Gateway in the next module which will in turn be connected to your web application to capture the ride details from your users.
 
