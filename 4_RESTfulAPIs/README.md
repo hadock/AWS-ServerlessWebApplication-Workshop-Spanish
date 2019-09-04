@@ -39,6 +39,7 @@ En la consola web de **API Gateway**, crea un nuevo **Cognito user pool authoriz
 
 **:white_check_mark: Instrucciones paso a paso**
 1. Bajo la nueva API creada, selecciona **Authorizers**.
+    ![Authorizer section](../images/authorizer.png)
 1. Haz click en **Create New Authorizer**.
 1. Escribe `WebAppAuthorizer` for the Authorizer name.
 1. Selecciona **Cognito** en la sección **type**.
