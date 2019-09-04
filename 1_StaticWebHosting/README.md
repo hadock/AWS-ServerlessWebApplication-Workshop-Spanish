@@ -62,13 +62,43 @@ Una vez que tu repositorio ha sido creado y clonado localmente, necesitaras pone
 
 **:white_check_mark: Indicaciones paso a paso**
 Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
-1. Entra al directorio de tu repositorio recientemente clonado:
+
+1. Copia los archivos de este workshop que tenemos disponibles en el zip de este módulo:
     ```
-    cd mywebapp-site/
-    ```
-1. Copia los archivos de este workshop que tenemos disponibles en un bucket S3:
-    ```
-    aws s3 cp s3://wildrydes-us-east-1/WebApplication/1_StaticWebHosting/website ./ --recursive
+    wget --output-document=website.tar https://raw.githubusercontent.com/hadock/AWS-ServerlessWebApplication-Workshop-Spanish/master/1_StaticWebHosting/website.tar && tar -xvf website.tar && cp -R ./website/ ./mywebapp-site/
+    
+    Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
+    Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 686080 (670K) [application/octet-stream]
+    Saving to: ‘website.tar’
+    
+    website.tar                     100%[=======================================================>] 670.00K  --.-KB/s    in 0.01s   
+    
+    2019-09-04 03:18:24 (54.3 MB/s) - ‘website.tar’ saved [686080/686080]
+    
+    ./website/
+    ./website/login.html
+    ./website/css/
+    ./website/css/application.css
+    ./website/verify.html
+    ./website/register.html
+    ./website/favicon.ico
+    ./website/index.html
+    ./website/robots.txt
+    ./website/js/
+    ./website/js/config.js
+    ./website/js/cognito-verify.js
+    ./website/js/vendor/
+    ./website/js/vendor/unicorn-icon
+    ./website/js/vendor/jquery-3.1.0.js
+    ./website/js/vendor/aws-cognito-sdk.min.js
+    ./website/js/vendor/amazon-cognito-identity.min.js
+    ./website/js/cognito-session-controller.js
+    ./website/js/cognito-login.js
+    ./website/js/api-gateway-requests.js
+    ./website/js/cognito-register.js
+    ./website/operations.html
     ```
 1. Commitea los archivos a su servicio git (Probablemente necesites introducir un correo y nombre para el commit):
     ```
