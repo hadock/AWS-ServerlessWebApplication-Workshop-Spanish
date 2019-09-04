@@ -44,7 +44,7 @@ En la consola web de **API Gateway**, crea un nuevo **Cognito user pool authoriz
 1. Selecciona **Cognito** en la sección **type**.
 1. En el menú desplegable bajo **Cognito User Pool**, selecciona la región donde creaste tu Cognito user pool (por defecto, la región actual debe estar seleccionada).
 1. Escribe `MyUsers` (o el nombre que le hayas dado a tu user pool) en el cuadro de texto **Cognito User Pool**.
-1. Enter `Authorization` for the **Token Source**.
+1. Escribe `Authorization` en el campo **Token Source** (Con esto le decimos a API Gateway en que parámetro del header debe buscar el token).
 1. Finalmente haz click en **Create**.
 
     ![Create user pool authorizer screenshot](../images/create-user-pool-authorizer.png)
