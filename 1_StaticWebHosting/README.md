@@ -65,7 +65,7 @@ Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
 
 1. Copia los archivos de este workshop que tenemos disponibles en el zip de este módulo:
     ```
-    wget --output-document=website.tar https://raw.githubusercontent.com/hadock/AWS-ServerlessWebApplication-Workshop-Spanish/master/1_StaticWebHosting/website.tar && tar -xvf website.tar && cp -R ./website/ ./mywebapp-site/
+    wget --output-document=website.tar https://raw.githubusercontent.com/hadock/AWS-ServerlessWebApplication-Workshop-Spanish/master/1_StaticWebHosting/website.tar && tar -xvf website.tar && cp -R ./website/ ./newone/ && rm -rf ./website
     
     Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
     Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
@@ -100,6 +100,11 @@ Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
     ./website/js/cognito-register.js
     ./website/operations.html
     ```
+1. Entra al directorio de tu repositorio recientemente clonado: 
+    ```
+    cd mywebapp-site/
+    ```
+
 1. Commitea los archivos a su servicio git (Probablemente necesites introducir un correo y nombre para el commit):
     ```
     $ git add .
