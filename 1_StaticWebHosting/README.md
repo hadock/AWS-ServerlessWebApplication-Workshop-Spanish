@@ -65,8 +65,11 @@ Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
 
 1. Copia los archivos de este workshop que tenemos disponibles en el zip de este módulo:
     ```
-    wget --output-document=website.tar https://raw.githubusercontent.com/hadock/AWS-ServerlessWebApplication-Workshop-Spanish/master/1_StaticWebHosting/website.tar && tar -xvf website.tar && cp -R ./website/ ./newone/ && rm -rf ./website
+    $ wget --output-document=website.tar https://raw.githubusercontent.com/hadock/AWS-ServerlessWebApplication-Workshop-Spanish/master/1_StaticWebHosting/website.tar && tar -xvf website.tar && cp -R ./website/ ./newone/ && rm -rf ./website
     
+    ```
+    El resultado debe ser algo como esto:
+    ```
     Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
     Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
     HTTP request sent, awaiting response... 200 OK
