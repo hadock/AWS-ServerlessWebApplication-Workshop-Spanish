@@ -41,7 +41,7 @@ En la consola web de **API Gateway**, crea un nuevo **Cognito user pool authoriz
 1. Bajo la nueva API creada, selecciona **Authorizers**.
     ![Authorizer section](../images/authorizer.png)
 1. Haz click en **Create New Authorizer**.
-1. Escribe `WebAppAuthorizer` for the Authorizer name.
+1. Escribe `WebAppAuthorizer` en el campo **Authorizer name**.
 1. Selecciona **Cognito** en la sección **type**.
 1. En el menú desplegable bajo **Cognito User Pool**, selecciona la región donde creaste tu Cognito user pool (por defecto, la región actual debe estar seleccionada).
 1. Escribe `MyUsers` (o el nombre que le hayas dado a tu user pool) en el cuadro de texto **Cognito User Pool**.
@@ -64,19 +64,19 @@ En la consola web de **API Gateway**, crea un nuevo **Cognito user pool authoriz
 1. Haz click en el boton **Test** y verifica que el código de la respuesta es un 200 y que la información de tu usuarios es correcta.
 
 ### 3. Crear un nuevo recurso y método
-Crea un nuevo recurso con el nombre `/annotate` en tu API, luego crea el metodo POST para ese recurso y configúralo para usar una integración Lambda proxy soportada por la función SaveAnnotation que haz creado en el módulo anterior.
+Crea un nuevo recurso con el nombre `/annotation` en tu API, luego crea el metodo POST para ese recurso y configúralo para usar una integración Lambda proxy soportada por la función SaveAnnotation que haz creado en el módulo anterior.
 
 **:white_check_mark: Instruciones paso a paso**
 1. En la barra de navegación izquierda haz click en **Resources** bajo tu API `MyWebAppAPI`.
 1. desde el menú desplegable **Actions** selecciona **Create Resource**.
-1. escribe `annotate` en el campo **Resource Name**.
-1. Asegúrate de que el **Resource Path** sea `annotate`.
+1. escribe `annotation` en el campo **Resource Name**.
+1. Asegúrate de que el **Resource Path** sea `annotation`.
 1. Selecciona la opcion **Enable API Gateway CORS** para este recurso.
 1. Haz click en **Create Resource**.
 
     ![Create resource screenshot](../images/create-resource.png)
 
-1. Con el nuevo recurso creado `/annotate` y seleccionado, desde el menú desplegable **Action** selecciona **Create Method**.
+1. Con el nuevo recurso creado `/annotation` y seleccionado, desde el menú desplegable **Action** selecciona **Create Method**.
 1. Elige `POST` desde el menú desplegable y luego haz click en el **checkmark**.
 
     ![Create method screenshot](../images/create-method.png)
@@ -98,7 +98,7 @@ Crea un nuevo recurso con el nombre `/annotate` en tu API, luego crea el metodo 
 ### 4. Despliega tu API
 Desde la consola web de API Gateway, haz click en **Actions** > **Deploy API**. en el cuadro de dialogo que aparece para crear un **stage**, puedes usar **prod** para el campo **stage name**  
 
-**:white_check_mark: Step-by-step directions**
+**:white_check_mark: Instrucciones paso a paso**
 1. En el menu desplegable **Actions** selecciona **Deploy API**.
 1. Selecciona **[New Stage]** en el menu desplegable **Deployment stage**.
 1. Escribe `prod` para el campo **Stage Name**.
