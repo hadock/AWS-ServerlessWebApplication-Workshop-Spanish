@@ -34,26 +34,36 @@ var MiAplicacion = window.MiAplicacion || {};
      * 
      * @returns Promise esta funcion retorna una promesa que puede ser ejecutada con un await
      * */
-    var api_request = (method, payload) => {
+    var api_request = (methodtype, resource, payload) => {
         /**
          * Usamos $.ajax() de JQuery para realizar el request a API Gateway.
          * En los parametros definimos lo siguiente
-         * method: POST <-- indica que API Gateway recibira la peticion en este metodo para el recurso
+         * methodtype: POST <-- indica que API Gateway recibira la peticion en este metodo para el recurso
          * url: String <-- la url de la api + el recurso, para efectos de este workshop es /annotation
          * headers: {} <-- objeto con la cabecera de ida, es aqui donde ponemos el token de autenticación
          * data: String <-- cuerpo del mensaje codificado en string, para enviar un objeto usamos JSON.stringify()
          * contentType: String <-- el tipo de datos que estaremos enviando a API Gateway.
          * */
          
-        return $.ajax({
-            method: 'POST',
-            url: _config.api.invokeUrl + '/' + method,
+        var params = {
+            type: methodtype,
+            url: _config.api.invokeUrl + '/' + resource,
             headers: {
                 Authorization: authToken
             },
-            data: JSON.stringify(payload),
             contentType: 'application/json'
-        });
+        }
+        
+        if(methodtype === "GET"){
+            if(typeof payload !== 'undefined'){
+                params.url+='?'+Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
+            }
+            return $.ajax(params);
+        }else{
+            params['data'] = Object.keys(payload).length? JSON.stringify(payload): null;
+            return $.ajax(params);
+        }
+            
             
     }
     
@@ -68,7 +78,7 @@ var MiAplicacion = window.MiAplicacion || {};
             //agregando el valor a la lista
             $('#updates').append($('<li id="'+id+'">' + txt + '</li>'));
             //enviando el valor a api gateway
-            var result = await api_request('annotation', {annotation: txt});
+            var result = await api_request('POST','annotation', {annotation: txt});
             //poniendo el id resultado de la operacion usando el id temporal
             $('#updates > #'+id).attr('id', result.noteid);
             
@@ -83,5 +93,11 @@ var MiAplicacion = window.MiAplicacion || {};
         $('#saveButton').unbind('click');
         $('#userInfo').toggle(500);
     })
+    
+    var result = await api_request('GET', 'annotation');
+    
+    for(var item of result.response.Items){
+        console.log(item.annotation)
+    }
     
 }(jQuery));
